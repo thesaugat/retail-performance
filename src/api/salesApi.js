@@ -66,7 +66,12 @@ export const parseCSVData = (csvText) => {
  */
 export const fetchSalesData = async () => {
     try {
-        const response = await fetch('/api/matches.csv');
+        const baseURL =
+            import.meta.env.MODE === "development"
+                ? "/api"
+                : "https://spl.starphones.com.au";
+
+        const response = await fetch(`${baseURL}/matches.csv`);
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);

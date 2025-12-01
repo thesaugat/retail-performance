@@ -68,10 +68,10 @@ export const fetchSalesData = async () => {
     try {
         const baseURL =
             import.meta.env.MODE === "development"
-                ? "/api"    // Vite dev proxy
-                : "/api";   // Vercel serverless proxy in production
+                ? "/api"
+                : "/api";
 
-        const response = await fetch(`${baseURL}/matches`);
+        const response = await fetch(`${baseURL}/matches.csv`);
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);

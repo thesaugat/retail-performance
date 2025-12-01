@@ -16,6 +16,10 @@
             "dest": "/api/matches.js"
         },
         {
+            "src": "/(.*\\.(js|css|map|ico|svg))",
+            "dest": "/$1"
+        },
+        {
             "src": "/(.*)",
             "dest": "/"
         }

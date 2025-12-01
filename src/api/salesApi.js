@@ -69,7 +69,7 @@ export const fetchSalesData = async () => {
         const baseURL =
             import.meta.env.MODE === "development"
                 ? "/api"
-                : "/api";
+                : "https://spl.starphones.com.au";
 
         const response = await fetch(`${baseURL}/matches.csv`);
 

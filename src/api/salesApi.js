@@ -66,12 +66,17 @@ export const parseCSVData = (csvText) => {
  */
 export const fetchSalesData = async () => {
     try {
-        const baseURL =
-            import.meta.env.MODE === "development"
-                ? "/api"
-                : "https://spl.starphones.com.au";
+        let apiUrl;
 
-        const response = await fetch(`${baseURL}/matches.csv`);
+        if (import.meta.env.MODE === "development") {
+            // Use Vite proxy in development
+            apiUrl = "/api/matches.csv";
+        } else {
+            // Use Vercel function in production
+            apiUrl = "/api/fetch-matches";
+        }
+
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -87,12 +92,6 @@ export const fetchSalesData = async () => {
         return parsedData;
     } catch (err) {
         console.error('Fetch error:', err);
-
-        let errorMessage = err.message;
-        if (err.message.includes('Failed to fetch')) {
-            errorMessage = 'Network error: Make sure the dev server is running.';
-        }
-
-        throw new Error(errorMessage);
+        throw new Error(`Failed to fetch data: ${err.message}`);
     }
 };

@@ -68,10 +68,10 @@ export const fetchSalesData = async () => {
     try {
         const baseURL =
             import.meta.env.MODE === "development"
-                ? "/api"
-                : "https://spl.starphones.com.au";
+                ? "/api"    // Vite dev proxy
+                : "/api";   // Vercel serverless proxy in production
 
-        const response = await fetch(`${baseURL}/matches.csv`);
+        const response = await fetch(`${baseURL}/matches`);
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
